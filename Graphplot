@@ -1,32 +1,55 @@
-# 📊 Graphplot: Product Analytics & Data Visualization
-### Data-Driven Discovery | Growth Loops | Performance Monitoring
+"""
+Market Segmentation & Strategic Prioritization Matrix
+-----------------------------------------------------
+Use Case: Comparing Value-Based Pricing (VPM) vs. 
+Discount-Based Pricing (DPM) segments to determine 
+product-market fit and resource allocation.
+"""
 
-This module contains custom Python plotting scripts designed to transform raw transaction and user behavior data into actionable product insights. I use these tools to bypass standard dashboard limitations and perform deep-dive analysis on retention, churn, and unit economics.
+import matplotlib.pyplot as plt
 
----
+# Data: Market Attractiveness vs. Positional Advantage
+vpm_segments = ["Urban Millennials", "Small Business Owners", "Emerging Professionals"]
+vpm_y = [9, 8, 6.5]  # Market Attractiveness
+vpm_x = [8.5, 6.5, 4.5]  # Positional Advantage
+vpm_sizes = [500, 300, 150] # Relative Market Size
 
-## 🚀 Key PM Use Cases
+dpm_segments = ["Urban Millennials", "Small Business Owners", "Emerging Professionals"]
+dpm_y = [9, 7.5, 7] 
+dpm_x = [0.25 + 6, -0.20 + 6, -0.30 + 6] # Adjusted for alignment
+dpm_sizes = [500, 300, 150]
 
-### 1. Cohort Analysis & Retention
-- **Script:** `retention_matrix.py`
-- **PM Value:** Identifying "Aha!" moments by visualizing which user segments remain active after Day 30. Essential for the scaling phase (0.1M to 1M+ users).
+fig, ax = plt.subplots(figsize=(12, 7))
 
-### 2. Funnel Visualization (Conversion & Drop-off)
-- **Script:** `funnel_plotter.py`
-- **PM Value:** Visualizing the onboarding journey. In past roles, this helped identify friction points, leading to a 35% increase in customer retention.
+# Plotting VPM Data
+ax.scatter(vpm_x, vpm_y, s=vpm_sizes, label="VPM Segments", alpha=0.6, color='#1f77b4')
 
-### 3. A/B Testing Significance
-- **Script:** `ab_test_viz.py`
-- **PM Value:** Moving beyond "gut feel" to statistical significance. Visualizing confidence intervals for new feature rollouts.
+# Plotting DPM Data
+ax.scatter(dpm_x, dpm_y, s=dpm_sizes, label="DPM Segments", alpha=0.6, color='#2ca02c')
 
----
+# Annotating segments for clarity
+for i, txt in enumerate(vpm_segments):
+    ax.annotate(f"{txt} (VPM)", (vpm_x[i], vpm_y[i]), xytext=(10,0), textcoords='offset points', fontsize=9)
 
-## 🛠️ Technical Stack
-- **Libraries:** Matplotlib, Seaborn, Pandas.
-- **Data Input:** SQL exports, CSVs from Mixpanel/CleverTap, and API JSON payloads.
+for i, txt in enumerate(dpm_segments):
+    ax.annotate(f"{txt} (DPM)", (dpm_x[i], dpm_y[i]), xytext=(10,0), textcoords='offset points', fontsize=9)
 
----
+# Strategic Quadrant Dividers
+ax.axhline(y=7.5, color='gray', linestyle='--', alpha=0.5)
+ax.axvline(x=6, color='gray', linestyle='--', alpha=0.5)
 
-## 💡 Why This Matters for Product
-> *"If you can't measure it, you can't manage it."*
-I use these visualizations to align stakeholders and engineering teams around the **North Star Metric**. By providing visual proof of user behavior trends, I ensure that our roadmap is driven by evidence, not assumptions.
+# Quadrant Labels (The "PM Thinking" Layer)
+ax.text(8, 9.5, "INVEST / GROW", fontsize=12, fontweight='bold', color='gray', alpha=0.5)
+ax.text(4.5, 9.5, "EVALUATE", fontsize=12, fontweight='bold', color='gray', alpha=0.5)
+ax.text(4.5, 4.5, "DIVEST / PROTECT", fontsize=12, fontweight='bold', color='gray', alpha=0.5)
+
+# Formatting
+ax.set_title("Strategic Positioning Matrix: VPM vs DPM Strategy", fontsize=15, pad=20)
+ax.set_xlabel("Positional Advantage / Business Strength", fontsize=12)
+ax.set_ylabel("Market Attractiveness", fontsize=12)
+ax.set_xlim(4, 10)
+ax.set_ylim(4, 10)
+ax.grid(True, which='both', linestyle=':', alpha=0.3)
+
+plt.tight_layout()
+plt.show()
