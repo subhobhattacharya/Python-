@@ -1,46 +1,32 @@
-#Python Code for Graph plotting
-import matplotlib.pyplot as plt
-vpm_segments = ["Urban Millennials (VPM)", "Small Business Owners (VPM)", "Emerging Professionals (VPM)"]
-vpm_market_attractiveness = [9, 8, 6.5]  # Vertical axis
-vpm_positional_advantage = [8.5, 6.5, 4.5]  # Horizontal axis
-vpm_bubble_sizes = [500, 300, 150]  # Bubble sizes proportional to importance
-dpm_segments = ["Urban Millennials (DPM)", "Small Business Owners (DPM)", "Emerging Professionals (DPM)"]
-dpm_market_attractiveness = [9, 7.5, 7]  # Vertical axis
-dpm_business_strength = [0.25, -0.20, -0.30]  # Horizontal axis
-dpm_bubble_sizes = [500, 300, 150]  # Bubble sizes proportional to importance
-fig, ax = plt.subplots(figsize=(10, 6))
-for i, segment in enumerate(vpm_segments):
-    ax.scatter(
-        vpm_positional_advantage[i], 
-        vpm_market_attractiveness[i], 
-        s=vpm_bubble_sizes[i], 
-        label=f"{segment} (VPM)", 
-        alpha=0.6, color='blue' )
-for i, segment in enumerate(dpm_segments):
-    ax.scatter(
-        dpm_business_strength[i] + 6,  # Shift DPM horizontal values for alignment
-        dpm_market_attractiveness[i], 
-        s=dpm_bubble_sizes[i], 
-        label=f"{segment} (DPM)", 
-        alpha=0.6, 
-        color='green' )
-for i, segment in enumerate(vpm_segments):
-    ax.text(
-        vpm_positional_advantage[i] + 0.2, vpm_market_attractiveness[i], segment, fontsize=10, color="blue")
-for i, segment in enumerate(dpm_segments):
-    ax.text(
-        dpm_business_strength[i] + 6.2, 
-        dpm_market_attractiveness[i], 
-        segment,fontsize=10, color="green" )
-ax.axhline(y=7.5, color='gray', linestyle='--', linewidth=0.8)  # Horizontal reference
-ax.axvline(x=6, color='gray', linestyle='--', linewidth=0.8)  # Vertical reference
-ax.set_xlabel("Positional Advantage / Business Strength", fontsize=12)
-ax.set_ylabel("Market Attractiveness", fontsize=12)
-ax.set_xlim(4, 10)
-ax.set_ylim(4, 10)
-legend_handles = [
-    plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='blue', markersize=10, label="VPM Segments"),
-    plt.Line2D([0], [0], marker='o', color='w', markerfacecolor='green', markersize=10, label="DPM Segments"),]
-ax.legend(handles=legend_handles, title="Legend", loc="lower right", fontsize=8)
-plt.tight_layout()
-plt.show()
+# 📊 Graphplot: Product Analytics & Data Visualization
+### Data-Driven Discovery | Growth Loops | Performance Monitoring
+
+This module contains custom Python plotting scripts designed to transform raw transaction and user behavior data into actionable product insights. I use these tools to bypass standard dashboard limitations and perform deep-dive analysis on retention, churn, and unit economics.
+
+---
+
+## 🚀 Key PM Use Cases
+
+### 1. Cohort Analysis & Retention
+- **Script:** `retention_matrix.py`
+- **PM Value:** Identifying "Aha!" moments by visualizing which user segments remain active after Day 30. Essential for the scaling phase (0.1M to 1M+ users).
+
+### 2. Funnel Visualization (Conversion & Drop-off)
+- **Script:** `funnel_plotter.py`
+- **PM Value:** Visualizing the onboarding journey. In past roles, this helped identify friction points, leading to a 35% increase in customer retention.
+
+### 3. A/B Testing Significance
+- **Script:** `ab_test_viz.py`
+- **PM Value:** Moving beyond "gut feel" to statistical significance. Visualizing confidence intervals for new feature rollouts.
+
+---
+
+## 🛠️ Technical Stack
+- **Libraries:** Matplotlib, Seaborn, Pandas.
+- **Data Input:** SQL exports, CSVs from Mixpanel/CleverTap, and API JSON payloads.
+
+---
+
+## 💡 Why This Matters for Product
+> *"If you can't measure it, you can't manage it."*
+I use these visualizations to align stakeholders and engineering teams around the **North Star Metric**. By providing visual proof of user behavior trends, I ensure that our roadmap is driven by evidence, not assumptions.
